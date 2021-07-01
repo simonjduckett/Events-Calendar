@@ -20,36 +20,44 @@ function loadTemplates() {
         let item            = calData.templates[key];
         const template      = document.createElement('div');
         template.id         = item.id;
+        template.classList.add('d-flex', 'justify-content-between', 'border-bottom', 'py-3');
         template.innerHTML  = item.name;
         template.addEventListener("click", () => { loadTemplate(key); }, false);
 
         templateList.appendChild(template);
+
+        const del = document.createElement('span');
+        del.innerHTML = '<i class="fas fa-trash-alt text-danger px-3"></i>';
+        del.addEventListener("click", () => { deleteTemplate(key); }, false)
+        template.appendChild(del);
     });
 }
 
 function loadTemplate(key) {
 
-    $('#template-key').val(key);
-    $('#currentTemplate').html(calData.templates[key].name);
-    $('#startdate').val(calData.templates[key].startDate)
-    $('#enddate').val(calData.templates[key].endDate)
-
-    calData.templates[key].days.forEach(item => {
-        let open    = item.day + '_open';
-        let opening = item.day + '_opening';
-        let last    = item.day + '_last';
-        let close   = item.day + '_close';
-
-        if(item.open === 'true') {
-            $('#'+open).prop('checked', true);
-        }
-        else {
-            $('#' + open).prop('checked', false);
-        }
-        $('#'+opening).val(item.openingTime);
-        $('#'+last).val(item.lastEntry);
-        $('#'+close).val(item.closingTime);
-    });
+    if(calData.templates[key]) {
+        $('#template-key').val(key);
+        $('#currentTemplate').html(calData.templates[key].name);
+        $('#startdate').val(calData.templates[key].startDate)
+        $('#enddate').val(calData.templates[key].endDate)
+    
+        calData.templates[key].days.forEach(item => {
+            let open    = item.day + '_open';
+            let opening = item.day + '_opening';
+            let last    = item.day + '_last';
+            let close   = item.day + '_close';
+    
+            if(item.open === 'true') {
+                $('#'+open).prop('checked', true);
+            }
+            else {
+                $('#' + open).prop('checked', false);
+            }
+            $('#'+opening).val(item.openingTime);
+            $('#'+last).val(item.lastEntry);
+            $('#'+close).val(item.closingTime);
+        });
+    }
 
 }
 
@@ -83,6 +91,16 @@ function addTemplate() {
     $('#createTemplateForm').trigger('reset');
 }
 
+function deleteTemplate(key) {
+    let deleteTemplate = confirm('Are you sure you want to delete this template?');
+
+    if(deleteTemplate) {
+        calData.templates.splice(key, 1);
+        loadTemplates()
+        createEvents()
+    }
+}
+
 function calEvent(templateKey, date) {
     this.start  = formatDate(date)
     this.open   = calData.templates[templateKey].days[date.getDay()].open;
@@ -112,7 +130,10 @@ function saveTemplate() {
         item.lastEntry = $('#'+last).val();
         
     })
+    createEvents()
+}
 
+function createEvents() {
     calData.events = [];
     Object.keys(calData.templates).forEach(key => {
         let newEvents = generateDates(key)
@@ -174,4 +195,4 @@ function formatDate(date) {
 }
 
 //add delete template option
-//this will remove the template and regenerate all the even times.
+//this will remove the template and regenerate all the event times.
