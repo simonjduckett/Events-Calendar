@@ -1,0 +1,75 @@
+{
+    "templates": [
+        {
+            "id": "template0",
+            "name": "test template",
+            "startDate": "2021-06-10",
+            "endDate": "2021-06-20",
+            "days": [
+                {
+                    "day": "sunday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                },
+                {
+                    "day": "monday",
+                    "open": "false",
+                    "openingTime": "9.00",
+                    "lastEntry": "5.00",
+                    "closingTime": "6.00"
+                },
+                {
+                    "day": "tuesday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                },
+                {
+                    "day": "wednesday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                },
+                {
+                    "day": "thursday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                },
+                {
+                    "day": "friday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                },
+                {
+                    "day": "saturday",
+                    "open": "true",
+                    "openingTime": "",
+                    "lastEntry": "",
+                    "closingTime": ""
+                }
+            ]
+        }
+    ],
+    "events": [
+        {
+            "title": "Event1",
+            "start": "2021-06-01"
+        },
+        {
+            "title": "Event2",
+            "start": "2021-06-04"
+        },
+        {
+            "title": "Event2",
+            "start": "2021-07-04"
+        }
+    ]
+}
