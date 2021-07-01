@@ -34,11 +34,11 @@
             <div class='col-9 p-4'>
                 <div class='d-flex justify-content-between'>
                     <h4>Current Template</h4>
-                    <button onclick="saveTemplate()" class='btn btn-success ml-auto'>Save</button>
+                    <button id='saveBtn' onclick="saveTemplate()" class='btn btn-success ml-auto'>Save</button>
                 </div>
-                <p id='currentTemplate'></p>
+                <p id='currentTemplate'>Choose Template</p>
                 <hr />
-                <form action="">
+                <form id='templateForm'>
                     <input type="hidden" id='template-key'>
                     <div class='row'>
                         <div class='col-3'>

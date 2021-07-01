@@ -5,7 +5,7 @@ $(document).ready(function() {
 let calData = {};
 
 function getData() {
-    $.getJSON("/data.json", function (data) {
+    $.getJSON("/calData.json", function (data) {
         calData = data;
         console.log(calData);
         loadTemplates()
@@ -98,6 +98,10 @@ function deleteTemplate(key) {
         calData.templates.splice(key, 1);
         loadTemplates()
         createEvents()
+        $('#template-key').val('');
+        $('#templateForm').trigger('reset')
+        $('#currentTemplate').html('Choose Template');
+        saveToFile();
     }
 }
 
@@ -109,28 +113,51 @@ function calEvent(templateKey, date) {
 
 function saveTemplate() {
     let key = $('#template-key').val();
+    if(key) {
+        calData.templates[key].startDate = $('#startdate').val();
+        calData.templates[key].endDate = $('#enddate').val();
+    
+        calData.templates[key].days.forEach(item => {
+            let open = item.day + '_open';
+            let opening = item.day + '_opening';
+            let last = item.day + '_last';
+            let close = item.day + '_close';
+    
+            item.closingTime = $('#'+close).val();
+            if($('#'+open).prop('checked') == true) {
+                item.open = 'true';
+            }
+            else {
+                item.open = 'false';
+            }
+            item.openingTime = $('#'+opening).val();
+            item.lastEntry = $('#'+last).val();
+            
+        })
+        createEvents()
+        saveToFile();
+    }
+    else {
+        alert('Please select a Template')
+    }
 
-    calData.templates[key].startDate = $('#startdate').val();
-    calData.templates[key].endDate = $('#enddate').val();
+}
 
-    calData.templates[key].days.forEach(item => {
-        let open = item.day + '_open';
-        let opening = item.day + '_opening';
-        let last = item.day + '_last';
-        let close = item.day + '_close';
-
-        item.closingTime = $('#'+close).val();
-        if($('#'+open).prop('checked') == true) {
-            item.open = 'true';
+function saveToFile(){
+    //ajax call to save json to file
+    $.ajax({
+        url: 'ajax.php',
+        method: 'post',
+        data: { 'saveJSON': 1, 'calData': JSON.stringify(calData)},
+        beforeSend: function(){
+            $('#saveBtn').html("<div class='spinner-border' role='status'><span class='sr-only'>Loading...</span ></div >");
+        },
+        success: function(data){
+            $('#saveBtn').html("Save")
+            console.log(data)
+            //alert('Template Saved')
         }
-        else {
-            item.open = 'false';
-        }
-        item.openingTime = $('#'+opening).val();
-        item.lastEntry = $('#'+last).val();
-        
     })
-    createEvents()
 }
 
 function createEvents() {
@@ -193,6 +220,3 @@ function formatDate(date) {
 
     return [year, month, day].join('-');
 }
-
-//add delete template option
-//this will remove the template and regenerate all the event times.
