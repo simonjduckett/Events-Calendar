@@ -20,10 +20,26 @@
                     dateClick: function() {
                         alert("a day has been clicked!");
                     },
-                    events: [...eventData]
+                    events: [...eventData],
+                    eventContent: function(data) {
+                        let props = data.event.extendedProps;
+                        //build the html content for each event below
+                        let content = ''
+                        if(props.open != 'false'){
+                            content      = `<strong>${props.openingTime} - ${props.closingTime}</strong>`;
+                            content     += `<p>Last entry: ${props.lastEntry}</p>`;
+                        }
+                        else {
+                            content = '<stong>Closed</strong>'
+                        }
+
+                        return {
+                            html: content
+                        }
+                    }
                 });
                 calendar.render();
-    
+
                 document.getElementById('btn').addEventListener("click", function() {
                     calendar.next();
                 })

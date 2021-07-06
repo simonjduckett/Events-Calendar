@@ -107,8 +107,12 @@ function deleteTemplate(key) {
 
 function calEvent(templateKey, date) {
     this.start  = formatDate(date)
-    this.open   = calData.templates[templateKey].days[date.getDay()].open;
-    this.title  = calData.templates[templateKey].days[date.getDay()].openingTime;
+    this.extendedProps = {
+        open: calData.templates[templateKey].days[date.getDay()].open,
+        openingTime: calData.templates[templateKey].days[date.getDay()].openingTime,
+        closingTime: calData.templates[templateKey].days[date.getDay()].closingTime,
+        lastEntry: calData.templates[templateKey].days[date.getDay()].lastEntry
+    }
 }
 
 function saveTemplate() {
