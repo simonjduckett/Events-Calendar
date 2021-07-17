@@ -276,6 +276,14 @@
             </div>
         </div>
     </section>
+    <style>
+        #savedAlert {
+            display: none;
+        }
+    </style>
+    <div id='savedAlert' class="alert alert-success text-center fixed-top" role="alert" style='max-width: 400px'>
+        Template Saved!
+    </div>
 </body>
 
 </html>

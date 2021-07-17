@@ -101,12 +101,13 @@ function deleteTemplate(key) {
         $('#template-key').val('');
         $('#templateForm').trigger('reset')
         $('#currentTemplate').html('Choose Template');
-        saveToFile();
+        saveToFile(true);
     }
 }
 
 function calEvent(templateKey, date) {
     this.start  = formatDate(date)
+    this.classNames = ['hobbleCalEvent']
     this.extendedProps = {
         open: calData.templates[templateKey].days[date.getDay()].open,
         openingTime: calData.templates[templateKey].days[date.getDay()].openingTime,
@@ -147,7 +148,7 @@ function saveTemplate() {
 
 }
 
-function saveToFile(){
+function saveToFile(deleted){
     //ajax call to save json to file
     $.ajax({
         url: 'ajax.php',
@@ -159,7 +160,12 @@ function saveToFile(){
         success: function(data){
             $('#saveBtn').html("Save")
             console.log(data)
-            //alert('Template Saved')
+            if(!deleted) {
+                $('#savedAlert').fadeIn();
+                setTimeout(() => {
+                    $('#savedAlert').fadeOut();
+                }, 2000);
+            }
         }
     })
 }

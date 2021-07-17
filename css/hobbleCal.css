@@ -1,0 +1,150 @@
+body {
+    background-color: beige;
+    background-image: url('/assets/images/bg.jpeg');
+}
+
+#calControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+}
+
+#calNext, #calPrev {
+    color: #fff;
+    background-color: #72a2b5;
+    border-color: #72a2b5;
+    padding: .5rem 1.25rem .5rem 1rem;
+    border: 0;
+    border-radius: 0;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+    -webkit-mask-image: url('/assets/images/arrowbtnleft.svg'),url('/assets/images/arrowmiddle.svg'),url('/assets/images/arrowend.svg');
+    mask-image: url('/assets/images/arrowbtnleft.svg'),url('/assets/images/arrowmiddle.svg'),url('/assets/images/arrowend.svg');
+    -webkit-mask-position: left top,9px top,right top;
+    mask-position: left top,9px top,right top;
+    -webkit-mask-size: 10px 100%,calc(100% - 38px) 100%,30px 100%;
+    mask-size: 10px 100%,calc(100% - 38px) 100%,30px 100%;
+    -webkit-mask-repeat: no-repeat,no-repeat,no-repeat;
+    mask-repeat: no-repeat,no-repeat,no-repeat;
+}
+
+#calNext span, #calPrev span {
+    display: inline-block;
+    font-size: 1rem;
+    height: 1em;
+    width: 1.5em;
+    background-color: #fff;
+    -webkit-mask-image: url('/assets/images/arrow-right.svg');
+    mask-image: url('/assets/images/arrow-right.svg');
+    -webkit-mask-position: left top;
+    mask-position: left top;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+#calPrev {
+    transform: scaleX(-1);
+}
+
+.hobbleCalEvent {
+    background-color: aqua;
+}
+
+.fc-event-main, .fc-h-event {
+    color: #414042 !important;
+    background-color: transparent;
+    text-align: center;
+    border: none !important;
+    font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+    font-size: 13px;
+}
+
+.fc-h-event p {
+    margin: 0;
+}
+
+.fc-daygrid-day {
+    padding: 5px !important;
+}
+
+.fc-daygrid-day-top {
+    justify-content: center;
+    color: #493276 !important;
+    font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+    font-size: 32px;
+}
+
+.fc .fc-daygrid-day-frame {
+    filter: drop-shadow(0 0 3px rgba(0,0,0,.25));
+}
+.fc-daygrid-day-frame::before {
+    -webkit-mask-image: url('/assets/images/hobcalbg.svg');
+    mask-image: url('/assets/images/hobcalbg.svg');
+    -webkit-mask-position: left top;
+    mask-position: left top;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.fc-day-other .fc-daygrid-day-frame::before, .fc-day-other .fc-daygrid-day-events {
+    opacity: .6;
+}
+.fc-day-other .fc-daygrid-day-number {
+    color: #AAAD94;
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+    border: none;
+}
+
+.fc-scrollgrid {
+    border: none !important;
+}
+
+.fc-col-header-cell div {
+    position: relative;
+}
+
+.fc-col-header-cell div::before {
+    content: "";
+    display: block;
+     -webkit-mask-image: url('/assets/images/hobcalbg.svg');
+    mask-image: url('/assets/images/hobcalbg.svg');
+    -webkit-mask-position: left top;
+    mask-position: left top;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 95%;
+    height: 100%;
+    background-color: #a79386;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fc-col-header-cell-cushion {
+    position: relative;
+    z-index: 12;
+    color: #fff;
+    text-transform: uppercase;
+}
