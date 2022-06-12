@@ -1,11 +1,11 @@
-$(document).ready(function () {
+$(document).ready(function() {
     getData();
 })
 
 let calData = {};
 
 function getData() {
-    $.getJSON("ajax.php?getJSON=1", function (data) {
+    $.getJSON("/calData.json", function (data) {
         calData = data;
         console.log(calData);
         loadTemplates()
@@ -17,11 +17,11 @@ function loadTemplates() {
     templateList.innerHTML = "";
 
     Object.keys(calData.templates).forEach(key => {
-        let item = calData.templates[key];
-        const template = document.createElement('div');
-        template.id = item.id;
+        let item            = calData.templates[key];
+        const template      = document.createElement('div');
+        template.id         = item.id;
         template.classList.add('d-flex', 'justify-content-between', 'border-bottom', 'py-3');
-        template.innerHTML = item.name;
+        template.innerHTML  = item.name;
         template.addEventListener("click", () => { loadTemplate(key); }, false);
 
         templateList.appendChild(template);
@@ -35,38 +35,38 @@ function loadTemplates() {
 
 function loadTemplate(key) {
 
-    if (calData.templates[key]) {
+    if(calData.templates[key]) {
         $('#template-key').val(key);
         $('#currentTemplate').html(calData.templates[key].name);
         $('#startdate').val(calData.templates[key].startDate)
         $('#enddate').val(calData.templates[key].endDate)
-
+    
         calData.templates[key].days.forEach(item => {
-            let open = item.day + '_open';
+            let open    = item.day + '_open';
             let opening = item.day + '_opening';
-            let last = item.day + '_last';
-            let close = item.day + '_close';
-
-            if (item.open === 'true') {
-                $('#' + open).prop('checked', true);
+            let last    = item.day + '_last';
+            let close   = item.day + '_close';
+    
+            if(item.open === 'true') {
+                $('#'+open).prop('checked', true);
             }
             else {
                 $('#' + open).prop('checked', false);
             }
-            $('#' + opening).val(item.openingTime);
-            $('#' + last).val(item.lastEntry);
-            $('#' + close).val(item.closingTime);
+            $('#'+opening).val(item.openingTime);
+            $('#'+last).val(item.lastEntry);
+            $('#'+close).val(item.closingTime);
         });
     }
 
 }
 
 function newDay(day) {
-    this.day = day
-    this.closingTime = ""
-    this.lastEntry = ""
-    this.open = "false"
-    this.openingTime = ""
+    this.day            = day
+    this.closingTime    = ""
+    this.lastEntry      = ""
+    this.open           = "false"
+    this.openingTime    = ""
 }
 
 function newTemplate(name) {
@@ -86,7 +86,7 @@ function addTemplate() {
     calData.templates.push(template);
     console.log(calData)
     loadTemplates()
-    loadTemplate(calData.templates.length - 1)
+    loadTemplate(calData.templates.length -1)
 
     $('#createTemplateForm').trigger('reset');
 }
@@ -94,7 +94,7 @@ function addTemplate() {
 function deleteTemplate(key) {
     let deleteTemplate = confirm('Are you sure you want to delete this template?');
 
-    if (deleteTemplate) {
+    if(deleteTemplate) {
         calData.templates.splice(key, 1);
         loadTemplates()
         createEvents()
@@ -106,7 +106,7 @@ function deleteTemplate(key) {
 }
 
 function calEvent(templateKey, date) {
-    this.start = formatDate(date)
+    this.start  = formatDate(date)
     this.classNames = ['hobbleCalEvent']
     this.extendedProps = {
         open: calData.templates[templateKey].days[date.getDay()].open,
@@ -118,26 +118,26 @@ function calEvent(templateKey, date) {
 
 function saveTemplate() {
     let key = $('#template-key').val();
-    if (key) {
+    if(key) {
         calData.templates[key].startDate = $('#startdate').val();
         calData.templates[key].endDate = $('#enddate').val();
-
+    
         calData.templates[key].days.forEach(item => {
             let open = item.day + '_open';
             let opening = item.day + '_opening';
             let last = item.day + '_last';
             let close = item.day + '_close';
-
-            item.closingTime = $('#' + close).val();
-            if ($('#' + open).prop('checked') == true) {
+    
+            item.closingTime = $('#'+close).val();
+            if($('#'+open).prop('checked') == true) {
                 item.open = 'true';
             }
             else {
                 item.open = 'false';
             }
-            item.openingTime = $('#' + opening).val();
-            item.lastEntry = $('#' + last).val();
-
+            item.openingTime = $('#'+opening).val();
+            item.lastEntry = $('#'+last).val();
+            
         })
         createEvents()
         saveToFile();
@@ -146,6 +146,28 @@ function saveTemplate() {
         alert('Please select a Template')
     }
 
+}
+
+function saveToFile(deleted){
+    //ajax call to save json to file
+    $.ajax({
+        url: 'ajax.php',
+        method: 'post',
+        data: { 'saveJSON': 1, 'calData': JSON.stringify(calData)},
+        beforeSend: function(){
+            $('#saveBtn').html("<div class='spinner-border' role='status'><span class='sr-only'>Loading...</span ></div >");
+        },
+        success: function(data){
+            $('#saveBtn').html("Save")
+            console.log(data)
+            if(!deleted) {
+                $('#savedAlert').fadeIn();
+                setTimeout(() => {
+                    $('#savedAlert').fadeOut();
+                }, 2000);
+            }
+        }
+    })
 }
 
 function createEvents() {
@@ -193,4 +215,18 @@ function getDates(startDate, stopDate) {
         currentDate = currentDate.addDays(1);
     }
     return dateArray;
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
