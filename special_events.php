@@ -24,7 +24,11 @@
             <div class='col-9 p-4'>
                 <div class='d-flex justify-content-between'>
                     <button id='newBtn' onclick='newEvent()' class='btn btn-success'>New</button>
-                    <button id='saveBtn' onclick='saveEvent()' class='btn btn-primary'>Save</button>
+                    <div>
+                        <a href="/" class='btn btn-primary'>View Calendar</a>
+                        <button id='saveBtn' onclick='saveEvent()' class='btn btn-primary'>Save</button>
+
+                    </div>
                 </div>
                 <hr class='my-3' />
                 <form class='py-3' id='createEventForm' onsubmit='addSpecialEvent(); return false'>

@@ -7,10 +7,11 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" rel='stylesheet' /> -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" rel="stylesheet" />
-    <link href="/css/hobbleCal.css" rel='stylesheet' />
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="/css/hobbleCal.css" rel='stylesheet' />
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             eventData = [];
@@ -89,13 +90,20 @@
 </head>
 
 <body>
-    <section id='openingTimesCal'>
-        <div id='calControls'>
-            <!-- <button id='calPrev'><span></span></button>
-            <button id='calNext'><span></span></button> -->
+    <div class='container'>
+        <div class='mt-3'>
+            <a href="/editCalendar.php" class='btn btn-primary'>Edit Opening</a>
+            <a href="/special_events.php" class='btn btn-primary'>Add Special Event</a>
+    
         </div>
-        <div id="calendar"></div>
-    </section>
+        <section id='openingTimesCal'>
+            <div id='calControls'>
+                <!-- <button id='calPrev'><span></span></button>
+                <button id='calNext'><span></span></button> -->
+            </div>
+            <div id="calendar"></div>
+        </section>
+    </div>
 </body>
 
 </html>

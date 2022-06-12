@@ -5,14 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" type="text/css" media="none" onload="if(media!='all')media='all'" />
-    <!-- <script src="/js/editCalendar.js"></script> -->
-    <script src="./js/includes.js"></script>
-    <script src="./js/editCalendar.js"></script>
+    <?php include './head.php';  ?>
     <title>Edit Calendar</title>
 </head>
 
@@ -36,7 +29,11 @@
             <div class='col-9 p-4'>
                 <div class='d-flex justify-content-between'>
                     <h4>Current Template</h4>
-                    <button id='saveBtn' onclick="saveTemplate()" class='btn btn-success ml-auto'>Save</button>
+                    <div>
+                        <a href="/" class='btn btn-primary'>View Calendar</a>
+                        <button id='saveBtn' onclick="saveTemplate()" class='btn btn-success ml-auto'>Save</button>
+
+                    </div>
                 </div>
                 <p id='currentTemplate'>Choose Template</p>
                 <hr />
